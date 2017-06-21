@@ -13,7 +13,7 @@ public class DishTrack {
     public static void populateDb(EntityManager em) {
 
         Restaurant restaurant1 = new Restaurant("rest1");
-        User user1 = new User("eeee", "eeee", "pw", "fn", "ln", "add", "cit", "111");
+        User user1 = new User("eeee", "eeee", "pw", "fn", "ln", "add", "cit", "111", "56485");
         Allergen gluten = new Allergen("gluten");
         Allergen milk = new Allergen("milk");
         Ingredient chicken = new Ingredient("chicken");

@@ -19,6 +19,7 @@ public class User {
     private String address;
     private String city;
     private String zip;
+    private String phone;
     private Integer discount;
 
     @Enumerated
@@ -30,7 +31,7 @@ public class User {
 
     public User() {}
 
-    public User(String username, String email, String password, String firstName, String lastName, String address, String city, String zip) {
+    public User(String username, String email, String password, String firstName, String lastName, String address, String city, String zip, String phone) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -39,6 +40,7 @@ public class User {
         this.address = address;
         this.city = city;
         this.zip = zip;
+        this.phone = phone;
     }
 
     public long getId() {
@@ -111,5 +113,37 @@ public class User {
 
     public void setZip(String zip) {
         this.zip = zip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }
