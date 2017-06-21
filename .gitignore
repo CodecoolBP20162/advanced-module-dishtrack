@@ -29,3 +29,6 @@ hs_err_pid*
 
 target/*
 out/*
+
+# Meta-inf #
+src/main/resources/META-INF/*
