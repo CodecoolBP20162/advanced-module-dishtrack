@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -19,6 +19,14 @@ public class User {
     private String address;
     private String city;
     private String zip;
+    private Integer discount;
+
+    @Enumerated
+    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     public User() {}
 

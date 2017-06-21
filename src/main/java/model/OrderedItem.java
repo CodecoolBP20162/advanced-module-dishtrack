@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "ordered_items")
-public class OrderedItems {
+public class OrderedItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,9 @@ public class OrderedItems {
 
     private Integer quantity;
 
-    public OrderedItems() {}
+    public OrderedItem() {}
 
-    public OrderedItems(Order order, Product product, Integer quantity) {
+    public OrderedItem(Order order, Product product, Integer quantity) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;

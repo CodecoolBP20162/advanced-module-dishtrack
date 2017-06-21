@@ -11,6 +11,10 @@ public class Restaurant {
     private long id;
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name="review_id")
+    private Review review;
+
     public Restaurant() {}
 
     public Restaurant(String name) {
@@ -32,5 +36,13 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Review getReview() {
+        return review;
+    }
+
+    public void setReview(Review review) {
+        this.review = review;
     }
 }

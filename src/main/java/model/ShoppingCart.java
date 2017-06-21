@@ -16,14 +16,14 @@ public class ShoppingCart {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private User customer;
 
     private Integer quantity;
 
     public ShoppingCart() {}
 
-    public ShoppingCart(Product product, Customer customer, Integer quantity) {
+    public ShoppingCart(Product product, User customer, Integer quantity) {
         this.product = product;
         this.customer = customer;
         this.quantity = quantity;
@@ -45,11 +45,11 @@ public class ShoppingCart {
         this.product = product;
     }
 
-    public Customer getCustomer() {
+    public User getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(User customer) {
         this.customer = customer;
     }
 

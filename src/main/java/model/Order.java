@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -22,16 +22,16 @@ public class Order {
     private String adminComment;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(referencedColumnName = "user_id")
+    private User customer;
 
     @ManyToOne
-    @JoinColumn(name = "courier_id")
-    private Courier courier;
+    @JoinColumn(referencedColumnName = "user_id")
+    private User courier;
 
     public Order(){}
 
-    public Order(String deliveryStatus, PaymentMethod paymentMethod, Customer customer) {
+    public Order(String deliveryStatus, PaymentMethod paymentMethod, User customer) {
         setDate(System.currentTimeMillis());
         this.deliveryStatus = deliveryStatus;
         this.paymentMethod = paymentMethod;
@@ -78,21 +78,21 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
-    public Customer getCustomer() {
+    public User getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(User customer) {
         this.customer = customer;
     }
 
-    public Courier getCourier() {
+/*    public User getCourier() {
         return courier;
     }
 
-    public void setCourier(Courier courier) {
+    public void setCourier(User courier) {
         this.courier = courier;
-    }
+    }*/
 
     public Long getDate() {
         return date;
@@ -108,5 +108,13 @@ public class Order {
 
     public void setCustomerComment(String customerComment) {
         this.customerComment = customerComment;
+    }
+
+    public String getAdminComment() {
+        return adminComment;
+    }
+
+    public void setAdminComment(String adminComment) {
+        this.adminComment = adminComment;
     }
 }
