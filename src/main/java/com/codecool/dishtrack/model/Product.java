@@ -1,4 +1,4 @@
-package model;
+package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
 import java.util.HashSet;

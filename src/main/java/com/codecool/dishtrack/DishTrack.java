@@ -1,6 +1,6 @@
+package com.codecool.dishtrack;
 
-import model.*;
-import org.eclipse.persistence.internal.oxm.schema.model.All;
+import com.codecool.dishtrack.model.*;
 
 import javax.persistence.*;
 import java.util.Arrays;

@@ -1,10 +1,10 @@
-package model;
+package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "ordered_items")
-public class OrderedItem {
+public class OrderedItems {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +20,9 @@ public class OrderedItem {
 
     private Integer quantity;
 
-    public OrderedItem() {}
+    public OrderedItems() {}
 
-    public OrderedItem(Order order, Product product, Integer quantity) {
+    public OrderedItems(Order order, Product product, Integer quantity) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;

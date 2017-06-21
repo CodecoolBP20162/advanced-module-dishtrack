@@ -1,26 +1,23 @@
-package model;
+package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Ingredient {
+public class Allergen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ingredient_id")
+    @Column(name = "allergen_id")
     private long id;
 
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Product> products;
+    @ManyToMany(mappedBy = "allergens")
+    private Set<Product> products = new HashSet<>();
 
-    public Ingredient() {}
-
-    public Ingredient(String name) {
-        this.name = name;
-    }
+    public Allergen() {}
 
     public long getId() {
         return id;
@@ -36,5 +33,10 @@ public class Ingredient {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Allergen(String name) {
+        this.name = name;
+
     }
 }
