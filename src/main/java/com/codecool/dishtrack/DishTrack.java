@@ -58,6 +58,18 @@ public class DishTrack {
             }
         }
 
+        UserDao userdao = new UserDao(em);
+        List<User> result = userdao.getAllUsers();
+        for (User user : result) {
+            System.out.println(user.getId());
+        }
+
+        User user1 = new User("johndoe", "pass@email.com", "pass", "John",
+                "Doe", "Fa utca 1.", "Budapest", "1131", "20/9999999");
+        userdao.addUser(user1);
+        User user = userdao.findUserById(2);
+        System.out.println(user.getUsername());
+
 //        Product product1 = em.find(Product.class, 1L);
 //        System.out.println("product name: " + product1.getName());
 //        System.out.println("restaurant name: " + product1.getRestaurant().getName());
