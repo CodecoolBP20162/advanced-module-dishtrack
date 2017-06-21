@@ -8,7 +8,7 @@
     <artifactId>advanced-module-dishtrack</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>DishTrack</name>
+    <name>com.codecool.dishtrack.DishTrack</name>
 
     <properties>
         <version.java>1.7</version.java>

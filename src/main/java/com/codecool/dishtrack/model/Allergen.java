@@ -1,22 +1,23 @@
-package model;
+package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class Restaurant {
+public class Allergen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "restaurant_id")
+    @Column(name = "allergen_id")
     private long id;
+
     private String name;
 
-    public Restaurant() {}
+    @ManyToMany(mappedBy = "allergens")
+    private Set<Product> products = new HashSet<>();
 
-    public Restaurant(String name) {
-        this.name = name;
-    }
-
+    public Allergen() {}
 
     public long getId() {
         return id;
@@ -32,5 +33,10 @@ public class Restaurant {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Allergen(String name) {
+        this.name = name;
+
     }
 }

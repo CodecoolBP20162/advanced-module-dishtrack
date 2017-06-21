@@ -1,4 +1,4 @@
-package model;
+package com.codecool.dishtrack.model;
 
 
 public enum PaymentMethod {

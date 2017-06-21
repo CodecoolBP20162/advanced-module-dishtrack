@@ -1,26 +1,22 @@
-package model;
+package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
-public class Ingredient {
+public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ingredient_id")
+    @Column(name = "restaurant_id")
     private long id;
-
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Product> products;
+    public Restaurant() {}
 
-    public Ingredient() {}
-
-    public Ingredient(String name) {
+    public Restaurant(String name) {
         this.name = name;
     }
+
 
     public long getId() {
         return id;
