@@ -1,8 +1,26 @@
 package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import java.util.HashSet;
 import java.util.Set;
+
+@NamedQueries({
+
+    @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p"),
+
+    @NamedQuery(name="Product.findById", query="SELECT p FROM Product p WHERE p.id = :id"),
+
+    @NamedQuery(name="Product.findByAllergen",
+                query = "SELECT p FROM Product p JOIN p.allergens a WHERE :allergen = a.name"),
+
+    @NamedQuery(name="Product.findByIngredient",
+                query = "SELECT p FROM Product p JOIN p.ingredients i WHERE :ingredient = i.name"),
+
+    @NamedQuery(name="Product.findAllInCartByCustomer",
+                query = "SELECT p FROM Product p JOIN ShoppingCart cart ON cart.product.id = p.id WHERE cart.customer.id = :id")
+})
 
 @Entity
 public class Product {
