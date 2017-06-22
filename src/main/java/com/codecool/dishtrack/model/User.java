@@ -2,6 +2,12 @@ package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+
+        @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+
+})
+
 @Entity
 @Table(name = "users")
 public class User {
