@@ -18,10 +18,12 @@ public class DishTrack {
         Allergen milk = new Allergen("milk");
         Ingredient chicken = new Ingredient("chicken");
         Set<Allergen> allergens1 = new HashSet<>(Arrays.asList(gluten, milk));
+        Set<Allergen> allergens2 = new HashSet<>(Arrays.asList(milk));
         Set<Ingredient> ingredients1 = new HashSet<>(Arrays.asList(chicken));
         Product becsiszelet = new Product("Becsi Szelet", "description1", ingredients1, "pic1.jpg", allergens1, Category.FOOD, restaurant1);
-        Product rantotthus = new Product("Rantott hus", "description2",  ingredients1, "pic2.jpg", allergens1, Category.DESSERT, restaurant1);
+        Product rantotthus = new Product("Rantott hus", "description2",  ingredients1, "pic2.jpg", allergens2, Category.DESSERT, restaurant1);
         Order order1 = new Order("delivered", PaymentMethod.CASH, user1);
+        ShoppingCart cart1 = new ShoppingCart(becsiszelet, user1, 1);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(user1);
@@ -32,6 +34,7 @@ public class DishTrack {
         em.persist(becsiszelet);
         em.persist(rantotthus);
         em.persist(order1);
+        em.persist(cart1);
 
         transaction.commit();
         System.out.println("Database populated");
@@ -44,11 +47,12 @@ public class DishTrack {
 
         populateDb(em);
 
-        String hql = "FROM Product";
-        Query query = em.createQuery(hql);
-        List<Product> results = query.getResultList();
+        List<Product> products = em.createNamedQuery("Product.findAll", Product.class).getResultList();
+        Product qProduct = em.createNamedQuery("Product.findById", Product.class).setParameter("id", (long)1).getSingleResult();
+        List<Product> withAllergen = em.createNamedQuery("Product.findByAllergen", Product.class).setParameter("allergen", "gluten").getResultList();
+        List<Product> productInCart = em.createNamedQuery("Product.findAllInCartByCustomer", Product.class).setParameter("id", (long)1).getResultList();
 
-        for(Product product : results) {
+        for(Product product : products) {
             System.out.println(product.getRestaurant().getName());
             for (Allergen allergen : product.getAllergens()) {
                 System.out.println(allergen.getName());
@@ -57,6 +61,10 @@ public class DishTrack {
                 System.out.println(ingredient.getName());
             }
         }
+
+        System.out.println("found by id: "+ qProduct.getId() + ". " + qProduct.getName());
+        System.out.println(withAllergen);
+        System.out.println(productInCart.get(0).getName());
 
 //        Product product1 = em.find(Product.class, 1L);
 //        System.out.println("product name: " + product1.getName());

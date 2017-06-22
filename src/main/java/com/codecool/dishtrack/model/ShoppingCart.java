@@ -12,11 +12,11 @@ public class ShoppingCart {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(referencedColumnName = "product_id")
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(referencedColumnName = "user_id")
     private User customer;
 
     private Integer quantity;
