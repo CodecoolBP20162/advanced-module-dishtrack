@@ -28,7 +28,10 @@ public class User {
     private String phone;
     private Integer discount;
 
-    @Enumerated
+    @OneToOne
+    private ShoppingCart cart;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @ManyToOne

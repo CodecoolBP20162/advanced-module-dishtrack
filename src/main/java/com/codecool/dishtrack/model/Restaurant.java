@@ -1,6 +1,8 @@
 package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Restaurant {
@@ -11,14 +13,15 @@ public class Restaurant {
     private long id;
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name="review_id")
-    private Review review;
+    @OneToMany()
+    @JoinColumn(name = "review_id")
+    private List<Review> reviews;
 
     public Restaurant() {}
 
     public Restaurant(String name) {
         this.name = name;
+        this.reviews = new ArrayList<>();
     }
 
 
@@ -38,11 +41,11 @@ public class Restaurant {
         this.name = name;
     }
 
-    public Review getReview() {
-        return review;
+    public List<Review> getReviews() {
+        return reviews;
     }
 
-    public void setReview(Review review) {
-        this.review = review;
+    public void addReview(Review review) {
+        this.reviews.add(review);
     }
 }

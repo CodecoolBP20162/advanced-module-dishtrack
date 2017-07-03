@@ -20,9 +20,6 @@ import java.util.Set;
     @NamedQuery(name="Product.findByIngredient",
                 query = "SELECT p FROM Product p JOIN p.ingredients i WHERE :ingredient = i.name"),
 
-    @NamedQuery(name="Product.findAllInCartByCustomer",
-                query = "SELECT p FROM Product p JOIN ShoppingCart cart ON cart.product.id = p.id WHERE cart.customer.id = :id"),
-
     @NamedQuery(name="Product.removeById", query="DELETE FROM Product p WHERE p.id = :id"),
 
     @NamedQuery(name="Product.findByCategory",
