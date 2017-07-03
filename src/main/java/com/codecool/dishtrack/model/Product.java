@@ -12,17 +12,25 @@ import java.util.Set;
 
     @NamedQuery(name="Product.findById", query="SELECT p FROM Product p WHERE p.id = :id"),
 
+    @NamedQuery(name="Product.findByName", query="SELECT p FROM Product p WHERE p.name = :name"),
+
     @NamedQuery(name="Product.findByAllergen",
                 query = "SELECT p FROM Product p JOIN p.allergens a WHERE :allergen = a.name"),
 
     @NamedQuery(name="Product.findByIngredient",
                 query = "SELECT p FROM Product p JOIN p.ingredients i WHERE :ingredient = i.name"),
 
-    @NamedQuery(name="Product.findAllInCartByCustomer",
-                query = "SELECT p FROM Product p JOIN ShoppingCart cart ON cart.product.id = p.id WHERE cart.customer.id = :id")
+    @NamedQuery(name="Product.removeById", query="DELETE FROM Product p WHERE p.id = :id"),
+
+    @NamedQuery(name="Product.findByCategory",
+                query = "SELECT p FROM Product p WHERE :category = p.category"),
+
+    @NamedQuery(name="Product.removeAllProducts", query="DELETE FROM Product"),
+
 })
 
-@Entity
+@Entity()
+@Table(name = "products")
 public class Product {
 
     @Id

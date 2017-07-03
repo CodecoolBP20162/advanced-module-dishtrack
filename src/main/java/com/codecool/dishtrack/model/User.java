@@ -2,6 +2,12 @@ package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+
+        @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+
+})
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,7 +28,10 @@ public class User {
     private String phone;
     private Integer discount;
 
-    @Enumerated
+    @OneToOne
+    private ShoppingCart cart;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @ManyToOne

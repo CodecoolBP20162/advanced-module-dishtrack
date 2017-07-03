@@ -23,7 +23,11 @@ public class DishTrack {
         Product becsiszelet = new Product("Becsi Szelet", "description1", ingredients1, "pic1.jpg", allergens1, Category.FOOD, restaurant1);
         Product rantotthus = new Product("Rantott hus", "description2",  ingredients1, "pic2.jpg", allergens2, Category.DESSERT, restaurant1);
         Order order1 = new Order("delivered", PaymentMethod.CASH, user1);
-        ShoppingCart cart1 = new ShoppingCart(becsiszelet, user1, 1);
+        CartItem firstItem = new CartItem(becsiszelet, 2);
+        List<CartItem> cartItems = Arrays.asList(firstItem);
+        ShoppingCart cart1 = new ShoppingCart(cartItems, user1);
+        Review review1 = new Review(user1, "was good");
+        restaurant1.addReview(review1);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(user1);
@@ -34,10 +38,12 @@ public class DishTrack {
         em.persist(becsiszelet);
         em.persist(rantotthus);
         em.persist(order1);
+        em.persist(firstItem);
         em.persist(cart1);
-
+        em.persist(review1);
         transaction.commit();
         System.out.println("Database populated");
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -50,7 +56,6 @@ public class DishTrack {
         List<Product> products = em.createNamedQuery("Product.findAll", Product.class).getResultList();
         Product qProduct = em.createNamedQuery("Product.findById", Product.class).setParameter("id", (long)1).getSingleResult();
         List<Product> withAllergen = em.createNamedQuery("Product.findByAllergen", Product.class).setParameter("allergen", "gluten").getResultList();
-        List<Product> productInCart = em.createNamedQuery("Product.findAllInCartByCustomer", Product.class).setParameter("id", (long)1).getResultList();
 
         for(Product product : products) {
             System.out.println(product.getRestaurant().getName());
@@ -64,7 +69,6 @@ public class DishTrack {
 
         System.out.println("found by id: "+ qProduct.getId() + ". " + qProduct.getName());
         System.out.println(withAllergen);
-        System.out.println(productInCart.get(0).getName());
 
 //        Product product1 = em.find(Product.class, 1L);
 //        System.out.println("product name: " + product1.getName());
