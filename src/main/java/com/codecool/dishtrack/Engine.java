@@ -37,7 +37,7 @@ public class Engine extends HttpServlet{
 
         try {
             req.setAttribute("product", "good");
-            req.getRequestDispatcher("index.html").forward(req,resp);
+            req.getRequestDispatcher("index.xhtml").forward(req,resp);
         } catch (ServletException e) {
             e.printStackTrace();
         }

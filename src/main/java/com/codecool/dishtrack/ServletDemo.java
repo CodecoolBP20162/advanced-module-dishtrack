@@ -24,7 +24,7 @@ public class ServletDemo extends HttpServlet{
 //        out.println("</body>");
 //        out.println("</html>");
         try {
-            request.getRequestDispatcher("index.html").forward(request,response);
+            request.getRequestDispatcher("index.xhtml").forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         }
