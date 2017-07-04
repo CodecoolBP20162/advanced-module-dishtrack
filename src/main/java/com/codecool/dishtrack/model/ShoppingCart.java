@@ -1,6 +1,7 @@
 package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "shopping_cart")
@@ -8,25 +9,20 @@ public class ShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shopping_cart_id")
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @OneToMany(mappedBy = "cart")
+    private List<CartItem> cartItems;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(referencedColumnName = "user_id")
     private User customer;
-
-    private Integer quantity;
 
     public ShoppingCart() {}
 
-    public ShoppingCart(Product product, User customer, Integer quantity) {
-        this.product = product;
+    public ShoppingCart(List<CartItem> cartItems, User customer) {
+        this.cartItems= cartItems;
         this.customer = customer;
-        this.quantity = quantity;
     }
 
     public long getId() {
@@ -37,12 +33,12 @@ public class ShoppingCart {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
     public User getCustomer() {
@@ -53,11 +49,4 @@ public class ShoppingCart {
         this.customer = customer;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
 }
