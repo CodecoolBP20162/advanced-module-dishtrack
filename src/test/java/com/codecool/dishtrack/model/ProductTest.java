@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Created by kata on 2017.06.22..
  */
-class ProductTest {
+public class ProductTest {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpaexamplePU");
     EntityManager em = emf.createEntityManager();
@@ -30,7 +30,7 @@ class ProductTest {
     Ingredient chicken;
 
     @BeforeEach
-    void setUp() throws SQLException {
+    public void setUp() throws SQLException {
         transaction.begin();
         em.createNamedQuery("Product.removeAllProducts").executeUpdate();
         transaction.commit();
@@ -54,7 +54,7 @@ class ProductTest {
     }
 
     @Test
-    void findAll_findsAllProduct() throws SQLException {
+    public void findAll_findsAllProduct() throws SQLException {
         List<Product> allProducts = Arrays.asList(alma, eper);
 
         assertEquals(allProducts.toString(),
