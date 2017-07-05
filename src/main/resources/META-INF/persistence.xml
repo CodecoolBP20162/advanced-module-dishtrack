@@ -4,8 +4,10 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="jpaexamplePU" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="jpaexamplePU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--<jta-data-source>java:/PostgresXADS</jta-data-source>-->
+
         <properties>
             <!--<property name="hibernate.archive.autodetection" value="class, hbm"/>-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
@@ -17,7 +19,7 @@
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/DistTrackDB"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/DishTrackDB"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="postgres"/>
             <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->

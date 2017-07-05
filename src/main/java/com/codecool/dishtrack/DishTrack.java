@@ -1,5 +1,6 @@
 package com.codecool.dishtrack;
 
+import com.codecool.dishtrack.domain.service.ProductService;
 import com.codecool.dishtrack.model.*;
 
 import javax.persistence.*;
@@ -42,6 +43,7 @@ public class DishTrack {
         em.persist(cart1);
         em.persist(review1);
         transaction.commit();
+
         System.out.println("Database populated");
         System.out.println();
     }
