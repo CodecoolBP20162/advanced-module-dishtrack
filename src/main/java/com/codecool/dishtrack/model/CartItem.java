@@ -1,6 +1,7 @@
 package com.codecool.dishtrack.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by kata on 2017.06.22..
@@ -20,8 +21,8 @@ public class CartItem {
 
     private Integer quantity;
 
-    @ManyToOne
-    private ShoppingCart cart;
+    @ManyToMany(mappedBy = "cartItems")
+    private Set<ShoppingCart> cart;
 
     public CartItem() {
     }
@@ -31,11 +32,12 @@ public class CartItem {
         this.quantity = quantity;
     }
 
-    public ShoppingCart getCart() {
+
+    public Set<ShoppingCart> getCart() {
         return cart;
     }
 
-    public void setCart(ShoppingCart cart) {
+    public void setCart(Set<ShoppingCart> cart) {
         this.cart = cart;
     }
 }
