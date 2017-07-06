@@ -58,6 +58,7 @@ public class ProductController {
 
         User user1 = new User("user1", "user1@gmail.com", "pw", "John", "Doe", "Nagymezo street 44", "Budapest", "1234", "01231256485");
         Order order1 = new Order("ordered", PaymentMethod.CASH, user1);
+        Order order2 = new Order("delivered", PaymentMethod.CREDITCARD, user1);
         CartItem firstItem = new CartItem(alma, 2);
         List<CartItem> cartItems = Arrays.asList(firstItem);
         ShoppingCart cart1 = new ShoppingCart(cartItems, user1);
@@ -72,6 +73,7 @@ public class ProductController {
         productRepository.save(eper);
         userRepository.save(user1);
         orderRepository.save(order1);
+        orderRepository.save(order2);
         cartItemRepository.save(cartItems);
         shoppingCartRepository.save(cart1);
 //        reviewRepository.save(review1);
@@ -79,14 +81,22 @@ public class ProductController {
     }
 
 
-
-
-
     @RequestMapping("/getproducts")
     @ResponseBody
     Iterable<Product> getProducts() {
         return productRepository.findAll();
+    }
 
+    @RequestMapping("/getfirstproduct")
+    @ResponseBody
+    List<Product> getFirstProduct() {
+        return productRepository.findProductById(1);
+    }
+
+    @RequestMapping("/getproductbyname")
+    @ResponseBody
+    List<Product> getProductByName() {
+        return productRepository.findProductByName("Alma");
     }
 
 //    @RequestMapping("/")

@@ -11,7 +11,8 @@ import java.util.List;
 
 @Transactional
 public interface ProductRepository extends CrudRepository<Product, Long> {
-    List<Product> findById(Long id);
+    List<Product> findProductById(long id);
+    List<Product> findProductByName(String name);
     List<Product> queryAllBy();
 }
 
