@@ -9,9 +9,10 @@ public class ShoppingCart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shopping_cart_id")
     private long id;
 
-    @OneToMany(mappedBy = "cart")
+    @ManyToMany
     private List<CartItem> cartItems;
 
     @OneToOne
