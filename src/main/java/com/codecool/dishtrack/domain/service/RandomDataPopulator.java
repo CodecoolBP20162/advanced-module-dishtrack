@@ -36,6 +36,12 @@ public class RandomDataPopulator {
     @EJB
     IngredientService ingredientService;
 
+    @EJB
+    UserService userService;
+
+    @EJB
+    OrderService orderService;
+
     @PostConstruct
     public void init (){
         Restaurant restaurant1 = new Restaurant("rest1");
@@ -48,12 +54,19 @@ public class RandomDataPopulator {
         Product alma = new Product("Alma", "description1", ingredients1, "pic1.jpg", allergens1, Category.FOOD, restaurant1);
         Product eper = new Product("Eper", "description2",  ingredients1, "pic2.jpg", allergens2, Category.DESSERT, restaurant1);
 
+
+        User user1 = new User("user1", "user1@gmail.com", "pw", "John", "Doe", "Nagymezo street 44", "Budapest", "1234", "01231256485");
+        Order order1 = new Order("ordered", PaymentMethod.CASH, user1);
+
+
         restaurantService.create(restaurant1);
         allergenService.create(gluten);
         allergenService.create(milk);
         ingredientService.create(chicken);
         productService.create(alma);
         productService.create(eper);
+        userService.create(user1);
+        orderService.create(order1);
 
     }
 
