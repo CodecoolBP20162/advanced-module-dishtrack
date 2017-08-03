@@ -4,52 +4,81 @@ package com.codecool.dishtrack.controller;
 import com.codecool.dishtrack.model.*;
 import com.codecool.dishtrack.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @RequestMapping("/users")
-@RestController
+@Controller
 public class UserController {
-
-    @Autowired
-    RestaurantRepository restaurantRepository;
-
-    @Autowired
-    AllergenRepository allergenRepository;
-
-    @Autowired
-    IngredientRepository ingredientRepository;
-
-    @Autowired
-    ProductRepository productRepository;
 
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    OrderRepository orderRepository;
 
-    @Autowired
-    CartItemRepository cartItemRepository;
-
-    @Autowired
-    ShoppingCartRepository shoppingCartRepository;
-
-    @Autowired
-    ReviewRepository reviewRepository;
+    @RequestMapping("/greeting")
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("name", name);
+        model.addAttribute("users", users);
+        return "greetings";
+    }
 
 
     @RequestMapping("/getusers")
     @ResponseBody
     Iterable<User> getUsers() {
         return userRepository.findAll();
+    }
 
+    @RequestMapping("/getcouriers")
+    @ResponseBody
+    List<User> getCouriers() {
+        return userRepository.findUsersByRole(Role.COURIER);
+    }
+
+    @RequestMapping("/getcustomers")
+    @ResponseBody
+    List<User> getCustomers() {
+        return userRepository.findUsersByRole(Role.CUSTOMER);
+    }
+
+    @RequestMapping("/getfirstuser")
+    @ResponseBody
+    User getFirstUser() {
+        return userRepository.findUserById(1);
+    }
+
+    @RequestMapping("/adduser")
+    @ResponseBody
+    void addUser(
+                @RequestParam(value="firstname", required=false, defaultValue="John") String firstName,
+                @RequestParam(value="lastname", required=false, defaultValue="Doe") String lastName,
+                @RequestParam(value="username", required=true) String userName,
+                @RequestParam(value="email", required=true) String email,
+                @RequestParam(value="password", required=true) String password,
+                @RequestParam(value="address", required=true) String address,
+                @RequestParam(value="city", required=true) String city,
+                @RequestParam(value="zip", required=true) String zip,
+                @RequestParam(value="phone", required=true) String phone,
+                @RequestParam(value="role", required=true, defaultValue = "customer") String role
+                ) {
+
+        User newUser = new User(userName, email, password, firstName, lastName, address, city, zip, phone);
+        if (role.equals("customer")) {
+            newUser.setRole(Role.CUSTOMER);
+        }
+        else if (role.equals("courier")) {
+            newUser.setRole(Role.COURIER);
+        }
+
+        userRepository.save(newUser);
     }
 
 }

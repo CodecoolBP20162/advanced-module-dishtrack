@@ -8,5 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 public interface OrderRepository extends CrudRepository<Order, Long> {
-    List<Order> findById(Long id);
+    List<Order> findById(long id);
+    List<Order> findOrdersByDeliveryStatus(String status);
+    Order findOrderById(long id);
+    List<Order> findOrdersByCourierId(long id);
 }

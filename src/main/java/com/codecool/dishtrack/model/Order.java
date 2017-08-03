@@ -115,4 +115,12 @@ public class Order {
     public void setAdminComment(String adminComment) {
         this.adminComment = adminComment;
     }
+
+    public User getCourier() {
+        return courier;
+    }
+
+    public void setCourier(User courier) {
+        this.courier = courier;
+    }
 }
