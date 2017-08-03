@@ -4,6 +4,8 @@ package com.codecool.dishtrack.controller;
 import com.codecool.dishtrack.model.*;
 import com.codecool.dishtrack.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,11 +15,20 @@ import java.util.List;
 
 
 @RequestMapping("/users")
-@RestController
+@Controller
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
+
+
+    @RequestMapping("/greeting")
+    public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+        Iterable<User> users = userRepository.findAll();
+        model.addAttribute("name", name);
+        model.addAttribute("users", users);
+        return "greetings";
+    }
 
 
     @RequestMapping("/getusers")
