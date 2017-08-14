@@ -42,6 +42,10 @@ public class ShoppingCart {
         this.cartItems = cartItems;
     }
 
+    public void addCartItem(CartItem cartItem) {
+        this.cartItems.add(cartItem);
+    }
+
     public User getCustomer() {
         return customer;
     }
