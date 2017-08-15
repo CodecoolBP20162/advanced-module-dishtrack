@@ -11,6 +11,6 @@ import java.util.List;
 
 @Transactional
 public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Long> {
-    List<ShoppingCart> findById(Long id);
+    ShoppingCart findShoppingCartByCustomer(long id);
 }
 
