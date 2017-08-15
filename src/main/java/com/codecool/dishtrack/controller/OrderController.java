@@ -6,6 +6,8 @@ import com.codecool.dishtrack.model.User;
 import com.codecool.dishtrack.repo.OrderRepository;
 import com.codecool.dishtrack.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RequestMapping("/order")
-@RestController
+@Controller
 public class OrderController {
 
     @Autowired
@@ -23,6 +25,12 @@ public class OrderController {
     @Autowired
     UserRepository userRepository;
 
+    @RequestMapping("/orders")
+    public String greeting(Model model) {
+        Iterable<Order> orders = orderRepository.findAll();
+        model.addAttribute("orders", orders);
+        return "orders";
+    }
 
     @RequestMapping("/getorders")
     @ResponseBody
