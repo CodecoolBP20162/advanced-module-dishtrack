@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>dishtrack demo</title>
+	<link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="nav-container">
+	<div class="menu-item active">ORDERS</div>
+	<div class="menu-item">DRIVERS</div>
+	<div class="menu-item">CUSTOMERS</div>
+	<div class="menu-item">PRODUCTS</div>
+</div>
+
+<div class="settings-container">
+	<div class="settings-button s-active">New</div>
+	<div class="settings-button">Assigned</div>
+	<div class="settings-button">In Transit</div>
+	<div class="settings-button">Delivered</div>
+	<div class="settings-button">Cancelled</div>
+</div>
+
+<div class="main-container">
+	<div th:each="order : ${orders}" class="order-row">
+		<!-- LEFT SIDE OF ORDER DETAILS -->
+		<div class="left-order">
+			<div class="map-div">
+				<img src="map.png" width="150" />
+			</div>
+			<div class="customer-details-wrapper">
+				<div class="customer-details">
+					<div th:text="${order.customer.firstName} + ' ' + ${order.customer.lastName}" class="customer-detail customer-name">John Doe</div>
+					<div th:text="${order.customer.zip} + ', ' + ${order.customer.address}" class="customer-detail customer-address">1234 Budapest asdbasd utca 45. fszt 1</div>
+					<div th:text="${order.customer.phone}" class="customer-detail customer-phone">+36-30-123-4567</div>
+				</div>
+				<div class="order-buttons">
+					<div class="button">ASSIGN DRIVER</div>
+					<div class="button">EDIT</div>
+					<div class="button">CANCEL</div>
+				</div>
+			</div>
+		</div>
+		<!-- RIGHT SIDE OF ORDER DETAI:S -->
+		<div class="right-order">
+			<div class="customer-details-wrapper">
+				<div class="order-details">
+					<div class="order-detail order-title">Order Details</div>
+					<div class="order-detail order-expected">Order expected in: <span class="value">48 mins</span></div>
+					<div class="order-detail order-distance">Distance: <span class="value">2.3km</span></div>
+					<div class="order-detail order-total-price">Total Price: <span class="value">$32</span></div>
+					<div class="order-detail order-comment">Customer Comment: <span class="value">please knock, the bell is out of order</span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+</body>
+</html>
