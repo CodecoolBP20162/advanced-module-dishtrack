@@ -7,9 +7,7 @@ import com.codecool.dishtrack.model.CartItem;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Transactional
 public interface CartItemRepository extends CrudRepository<CartItem, Long> {
-    List<CartItem> findById(Long id);
+    CartItem findById(Long id);
 }

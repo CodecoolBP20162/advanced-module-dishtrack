@@ -27,6 +27,14 @@ public class CartItem {
     public CartItem() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
     public CartItem(Product product, Integer quantity) {
         this.product = product;
         this.quantity = quantity;
@@ -40,4 +48,6 @@ public class CartItem {
     public void setCart(Set<ShoppingCart> cart) {
         this.cart = cart;
     }
+
+    public Product getProduct(){ return product;}
 }

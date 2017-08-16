@@ -1,36 +1,32 @@
 package com.codecool.dishtrack.controller;
 
 
-import com.codecool.dishtrack.model.Order;
-import com.codecool.dishtrack.model.User;
-import com.codecool.dishtrack.repo.OrderRepository;
-import com.codecool.dishtrack.repo.UserRepository;
+import com.codecool.dishtrack.model.*;
+import com.codecool.dishtrack.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping("/order")
-@Controller
+@RestController
 public class OrderController {
 
     @Autowired
     OrderRepository orderRepository;
 
     @Autowired
+    OrderedItemsRepository orderedItemsRepository;
+
+    @Autowired
     UserRepository userRepository;
 
-    @RequestMapping("/orders")
-    public String greeting(Model model) {
-        Iterable<Order> orders = orderRepository.findAll();
-        model.addAttribute("orders", orders);
-        return "orders";
-    }
+    @Autowired
+    CartItemRepository cartItemRepository;
+
+    @Autowired
+    ShoppingCartRepository shoppingCartRepository;
 
     @RequestMapping("/getorders")
     @ResponseBody
@@ -43,6 +39,25 @@ public class OrderController {
     List<Order> getOrdersByStatus(@RequestParam(value="status", required=true) String status) {
         return orderRepository.findOrdersByDeliveryStatus(status);
     }
+
+    @RequestMapping("/updatedeliverystatus")
+    @ResponseBody
+    void updateDeliveryStatus(@RequestParam(value="status", required=true) String status,
+                              @RequestParam(value="orderId", required=true) String orderId){
+        Order order = orderRepository.findOrderById(Integer.parseInt(orderId));
+        order.setDeliveryStatus(status);
+        orderRepository.save(order);
+
+    }
+
+    @RequestMapping("/deleteorder")
+    @ResponseBody
+    void deleteOrder(@RequestParam(value="orderId", required=true) Integer orderId){
+        orderRepository.delete((long)orderId);
+    }
+
+
+
 
     @RequestMapping("/assigncourier")
     @ResponseBody
@@ -57,10 +72,25 @@ public class OrderController {
         return orderRepository.findOrderById(Integer.parseInt(orderId));
     }
 
-//    @RequestMapping("/getorders")
-//    @ResponseBody
-//    Iterable<User> getOrders() {
-//        return orderRepository.findAll();
-//    }
+    @RequestMapping("/saveorder")
+    @ResponseBody
+    void saveOrder(@RequestParam(value="paymentMethod") String paymentMethod) {
+//      user id from session
+//      delivery status = ordered
+        User user = userRepository.findUserById(1); //the parameter should be userID from the session
+        Order order = new Order("ordered", PaymentMethod.CASH, user);
+        orderRepository.save(order);
+        ShoppingCart shoppingCart = shoppingCartRepository.findShoppingCartByCustomer(user);
+        List<CartItem> cartItems = shoppingCart.getCartItems();
+        for(CartItem cartItem : cartItems){
+            orderedItemsRepository.save(new OrderedItems(order, cartItem.getProduct(),cartItem.getQuantity()));
+        }
+        shoppingCartRepository.deleteAllByCustomer(user);
+        for (int i = 0; i < cartItems.size(); i++) {
+             cartItemRepository.delete(cartItems.get(i).getId());
+        }
+
+    }
+
 
 }

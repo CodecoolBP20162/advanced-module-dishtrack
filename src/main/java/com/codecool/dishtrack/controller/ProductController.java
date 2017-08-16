@@ -91,13 +91,13 @@ public class ProductController {
 
     @RequestMapping("/getfirstproduct")
     @ResponseBody
-    List<Product> getFirstProduct() {
+    Product getFirstProduct() {
         return productRepository.findProductById(1);
     }
 
     @RequestMapping("/getproductbyname")
     @ResponseBody
-    List<Product> getProductByName() {
+    Product getProductByName() {
         return productRepository.findProductByName("Alma");
     }
 
