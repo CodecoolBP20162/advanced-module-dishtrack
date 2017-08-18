@@ -3,15 +3,9 @@ package com.codecool.dishtrack.controller;
 import com.codecool.dishtrack.model.*;
 import com.codecool.dishtrack.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @CrossOrigin
 @RequestMapping("/products")
@@ -99,6 +93,36 @@ public class ProductController {
     @ResponseBody
     Product getProductByName() {
         return productRepository.findProductByName("Alma");
+    }
+
+//    @RequestMapping(value="/addproduct", method=RequestMethod.POST)
+//    @ResponseBody
+//    void addProduct(@RequestParam(value="name", required=false, defaultValue="John") String name,
+//                    @RequestParam(value="description", required=false, defaultValue="Doe") String description,
+//                    @RequestParam(value="ingredients", required=true) String ingredient,
+//                    @RequestParam(value="picture", required=true) String picture,
+//                    @RequestParam(value="allergens", required=true) String allergen1,
+//                    @RequestParam(value="category", required=true) String category) {
+//
+//        Allergen allergen = new Allergen(allergen1);
+//        Set<Allergen> allergens = new HashSet<>(Arrays.asList(allergen));
+//        Ingredient chicken = new Ingredient(ingredient);
+//        Set<Ingredient> ingredients = new HashSet<>(Arrays.asList(chicken));
+//        Restaurant restaurant = new Restaurant("restaurant123");
+//        Product newProduct = new Product(name, description, ingredients, picture, allergens, Category.FOOD, restaurant);
+//
+//        productRepository.save(newProduct);
+//    }
+
+    @RequestMapping(value = "/addproduct", method = RequestMethod.POST)
+    @ResponseBody
+    String addProduct(@RequestBody Map<String, String> payload){
+        System.out.println("P A Y L O A D:");
+        // name, description, image, price
+
+//        Product newProduct = new Product(payload["name"], payload["description"], )
+
+        return "Success";
     }
 
 //    @RequestMapping("/")
